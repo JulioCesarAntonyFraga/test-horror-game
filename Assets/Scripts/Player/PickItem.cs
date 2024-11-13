@@ -6,12 +6,14 @@ public class PickItem : MonoBehaviour
 {
     private Inventory inventory;
     private Player player;
+    private EquipItem equipItem;
     public float pickRange = 2f;
     // Start is called before the first frame update
     void Start()
     {
         inventory = GetComponent<Inventory>();
         player = GetComponent<Player>();
+        equipItem = GetComponent<EquipItem>();
     }
 
     // Update is called once per frame
@@ -46,6 +48,7 @@ public class PickItem : MonoBehaviour
                     else
                     {
                         inventory.AddItem(pickableItem);
+                        equipItem.Equip(pickableItem);
                         Destroy(pickableItem.gameObject);
                     }
                 }
