@@ -25,7 +25,13 @@ public class EquipItem : MonoBehaviour
             Destroy(equipedItem);
         }
 
-        equipedItem = Instantiate(item.Prefab, camera.transform.position + new Vector3(xPositionInCamera, yPositionInCamera, distanceToCamera), Quaternion.Euler(Vector3.up), transform);
+        Vector3 itemPosition = camera.transform.position + new Vector3(xPositionInCamera, yPositionInCamera, distanceToCamera);
+
+        equipedItem = Instantiate(item.Prefab, itemPosition, Quaternion.Euler(Vector3.zero), camera.transform);
         equipedItem.AddComponent<EquipedItem>();
+        equipedItem.GetComponent<MeshCollider>().enabled = false;
+        equipedItem.GetComponent<Transform>().localRotation = Quaternion.Euler(Vector3.forward);
+        equipedItem.GetComponent<MeshRenderer>().receiveShadows = false;
+        equipedItem.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 }
