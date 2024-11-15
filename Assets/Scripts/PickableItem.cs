@@ -6,6 +6,6 @@ public class PickableItem : MonoBehaviour
 {
     public string Name;
     public int Quantity;
-    public Sprite Icon;
+    public Sprite ItemImage;
     public GameObject? Prefab;
 }

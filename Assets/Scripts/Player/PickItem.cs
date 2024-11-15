@@ -35,22 +35,18 @@ public class PickItem : MonoBehaviour
                 //TODO: Use new input system here
                 if (Input.GetMouseButtonDown(0) && !player.inventoryOpened && !player.isReadingLetter)
                 {
-                    if (pickableItem.GetComponent<PickableLetter>() != null)
-                    {
-                        var letter = pickableItem.GetComponent<PickableLetter>();
+                    var letter = hit.collider.GetComponent<PickableLetter>();
 
-                        if (!letter.isShowing)
-                        {
-                            inventory.AddItem(pickableItem);
-                            pickableItem.GetComponent<PickableLetter>().ShowLetter();
-                        }
-                    }
-                    else
+                    if (letter == null)
                     {
                         inventory.AddItem(pickableItem);
                         equipItem.Equip(pickableItem);
-                        Destroy(pickableItem.gameObject);
                     }
+                    else
+                    {
+                        inventory.AddLetter(letter);
+                    }
+                    Destroy(pickableItem.gameObject);
                 }
             }
         }

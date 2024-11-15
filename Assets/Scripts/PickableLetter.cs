@@ -1,45 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PickableLetter : MonoBehaviour
+public class PickableLetter : PickableItem
 {
-    public GameObject letter;
-    public GameObject playerObj;
-    private Player player;
+    public Canvas lettersCanva;
+    public Player player;
 
-    public bool isShowing = false;
-
-    private void Start()
-    {
-        player = playerObj.GetComponent<Player>();
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && isShowing)
-        {
-            DismissLetter();
-        }
-    }
+    public float letterWidthInCanvas = 200;
+    public float letterHeightInCanvas = 200;
 
     public void ShowLetter()
     {
-        isShowing = true;
-        player.canMove = false;
-        player.canLook = false;
         player.isReadingLetter = true;
-        letter.SetActive(true);
+        var image = new GameObject();
+        image.transform.parent = lettersCanva.transform;
+
+        image.name = Name;
+        image.AddComponent<Image>();
+        image.GetComponent<Image>().sprite = ItemImage;
+        image.GetComponent<RectTransform>().sizeDelta = new Vector2(letterWidthInCanvas, letterHeightInCanvas);
+        image.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        image.AddComponent<UILetter>();
+
+        var uiLetter = image.GetComponent<UILetter>();
+        uiLetter.player = player;
+
+        player.DisablePlayer(false);
     }
 
-    public void DismissLetter()
-    {
-        var player = playerObj.GetComponent<Player>();
-        player.canMove = true;
-        player.canLook = true;
-        player.isReadingLetter = false;
-        letter.SetActive(false);
-        Destroy(gameObject);
-    }
+    
 }

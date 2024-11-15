@@ -28,7 +28,6 @@ public class EquipItem : MonoBehaviour
         Vector3 itemPosition = transform.position + new Vector3(xPositionInCamera, yPositionInCamera, distanceToCamera);
 
         equipedItem = Instantiate(item.Prefab, itemPosition, Quaternion.Euler(Vector3.zero), camera.transform);
-        equipedItem.AddComponent<EquipedItem>();
         equipedItem.layer = LayerMask.NameToLayer("Equiped Items");
         equipedItem.GetComponent<MeshCollider>().enabled = false;
         equipedItem.GetComponent<Transform>().localRotation = Quaternion.Euler(Vector3.forward);

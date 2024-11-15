@@ -1,24 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
     public List<PickableItem> items = new List<PickableItem>();
-    public GameObject inventoryUIObj;
-    private InventoryUI inventoryUI;
+    public GridLayoutGroup inventoryUI;
     private Player player;
 
     private void Start()
     {
         player = GetComponent<Player>();
-        inventoryUI = inventoryUIObj.GetComponent<InventoryUI>();
     }
 
     public void AddItem(PickableItem item)
     {
         items.Add(item);
-        inventoryUI.AddItem(item);
+
+        GameObject itemUI = new GameObject();
+        itemUI.name = item.Name;
+
+        var inventoryButton = AddInventoryButton(itemUI, item.ItemImage);
+
+        itemUI.GetComponent<RectTransform>().SetParent(inventoryUI.transform);
+    }
+
+    public void AddLetter(PickableLetter letter)
+    {
+        items.Add(letter);
+
+        GameObject itemUI = new GameObject();
+        itemUI.name = letter.Name;
+
+        Button inventoryButton = AddInventoryButton(itemUI, letter.ItemImage);
+
+        inventoryButton.onClick.AddListener(() => letter.ShowLetter());
+        inventoryButton.onClick.AddListener(() => CloseInventory());
+        inventoryButton.onClick.AddListener(() => player.DisablePlayer(false));
+
+        itemUI.GetComponent<RectTransform>().SetParent(inventoryUI.transform);
     }
 
     public void RemoveItem(PickableItem item) 
@@ -26,26 +49,39 @@ public class Inventory : MonoBehaviour
         items.Remove(item);
     }
 
+    public void OpenInventory()
+    {
+        player.DisablePlayer(true);
+        player.inventoryOpened = true;
+        inventoryUI.gameObject.SetActive(true);
+    }
+
+    public void CloseInventory()
+    {
+        player.EnablePlayer();
+        player.inventoryOpened = false;
+        inventoryUI.gameObject.SetActive(false);
+    }
+
+    private Button AddInventoryButton(GameObject UIObject, Sprite image)
+    {
+        Button itemButton = UIObject.AddComponent<Button>();
+        itemButton.AddComponent<Image>();
+        itemButton.GetComponent<Image>().sprite = image;
+
+        return itemButton;
+    }
+   
     private void Update()
     {
         //TODO: replace with input manager
-        if (Input.GetKeyDown(KeyCode.E) && !inventoryUI.isOpened && !player.isReadingLetter)
+        if (Input.GetKeyDown(KeyCode.E) && !player.inventoryOpened && !player.isReadingLetter)
         {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            player.canMove = false;
-            player.canLook = false;
-            player.inventoryOpened = true;
-            inventoryUI.OpenInventory();
+            OpenInventory();
         }
-        else if (Input.GetKeyDown(KeyCode.E) && inventoryUI.isOpened)
+        else if (Input.GetKeyDown(KeyCode.E) && player.inventoryOpened)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            player.canMove = true;
-            player.canLook = true;
-            player.inventoryOpened = false;
-            inventoryUI.CloseInventory();
+            CloseInventory();
         }
     }
 }

@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 8103777045682338515}
   - component: {fileID: 7360388436336445591}
   - component: {fileID: 8051705401370264289}
-  - component: {fileID: 5800394576417873930}
-  - component: {fileID: 5760373577809034926}
   - component: {fileID: 3590705415602855586}
+  - component: {fileID: 2918241011620032665}
   m_Layer: 0
   m_Name: Stand Letter
   m_TagString: Untagged
@@ -86,8 +85,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5800394576417873930
-MeshCollider:
+--- !u!114 &3590705415602855586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8102133775892808593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f81028a0acbe743a4541734dc986ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 
+  Quantity: 0
+  ItemImage: {fileID: 0}
+  Prefab: {fileID: 0}
+  LettersCanva: {fileID: 0}
+  playerObj: {fileID: 0}
+--- !u!135 &2918241011620032665
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,38 +121,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &5760373577809034926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8102133775892808593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08af856dc397e224d994c04d0636122d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Letter
-  Quantity: 1
-  Icon: {fileID: 0}
-  Prefab: {fileID: 0}
---- !u!114 &3590705415602855586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8102133775892808593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73f81028a0acbe743a4541734dc986ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  letter: {fileID: 0}
-  playerObj: {fileID: 0}
-  isShowing: 0
+  serializedVersion: 3
+  m_Radius: 5.000001
+  m_Center: {x: 0.001953125, y: 0, z: 0}
